@@ -7,8 +7,6 @@ module.exports = {
 
         const [count] = await connection('incidents').count();
 
-        console.log(count);
-
         const incidents = await connection('incidents')
             .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
             .limit(5)
@@ -22,6 +20,8 @@ module.exports = {
                 'ongs.uf'
             ]);
 
+        console.log(page);
+        
         response.header('X-Total-Count', count['count(*)']);
 
         return response.json(incidents);
